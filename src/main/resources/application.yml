@@ -1,0 +1,34 @@
+server:
+  port: 9090
+  servlet:
+    context-path: /
+
+spring:
+  
+  datasource:
+    url: jdbc:postgresql://localhost:5432/recipe
+    username: postgres
+    password: 1234
+    driver-class-name: org.postgresql.Driver
+ 
+  thymeleaf: 
+    cache: false
+    encoding: UTF-8
+    prefix: classpath:templates/
+    suffix: .html
+    mode: HTML
+  ai:
+    google:
+      genai:
+        api-key: ${GEN_KEY}
+        embedding:
+          api-key: ${GEN_KEY}
+          text:
+            model: gemini-embedding-001
+            dimensions: 768
+
+mybatis: 
+  type-aliases-package: com.sist.web.vo
+  mapper-locations: 
+    - classpath:mapper/postgres/*.xml
+ 

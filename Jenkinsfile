@@ -46,12 +46,12 @@ pipeline {
 					)
 				]){
 					sh '''
-					    cat > .env << EOF
-					    SPRING_PROFILES_ACTIVE=prod
-					    POST_URL=${POST_URL}
-					    GEN_KEY=${GEN_KEY}
-					    EOF
-					      chmod 600 .env
+	
+					    echo "SPRING_PROFILES_ACTIVE=prod" >> .env
+					    echo "POST_URL=${POST_URL}" >> .env
+					    echo "GEN_KEY=${GEN_KEY}" >> .env
+					    
+					    chmod 600 .env
 					   '''
 				}
 			}
@@ -77,7 +77,7 @@ pipeline {
 		stage('Docker Build'){
 			steps {
 				sh '''
-				     docker build -t chaijewon/ai-app:latest .
+				     docker build -t cksdn858/ai-app:latest .
 				   '''
 			}
 		}
@@ -99,7 +99,7 @@ pipeline {
 		stage('Docker Push'){
 			steps {
 				sh '''
-				    docker push chaijewon/ai-app:latest
+				    docker push cksdn858/ai-app:latest
 				   '''
 			}
 		}
@@ -123,7 +123,7 @@ pipeline {
 		stage('DockerHub Pull'){
 			steps {
 				sh '''
-				    docker pull chaijewon/ai-app:latest
+				    docker pull cksdn858/ai-app:latest
 				   '''
 			}
 		}
@@ -131,7 +131,7 @@ pipeline {
 		stage('Docker Run'){
 			steps {
 				sh '''
-				     docker run -d --name ai-app -p 9090:9090 --env-file .env chaijewon/ai-app:latest
+				     docker run -d --name ai-app -p 9090:9090 --env-file .env cksdn858/ai-app:latest
 				   '''
 			}
 		}

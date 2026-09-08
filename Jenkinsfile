@@ -41,7 +41,7 @@ pipeline {
 						variable: 'POST_URL'
 					),
 					string(
-						credentialsId: 'gen-key',
+						credentialsId: 'gen-hey',
 						variable: 'GEN_KEY'
 					)
 				]){

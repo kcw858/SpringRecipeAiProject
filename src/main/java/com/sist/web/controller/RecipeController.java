@@ -18,6 +18,53 @@ import com.sist.web.service.RecipeService;
 
 import lombok.RequiredArgsConstructor;
 
+/*
+ * 1. 전체 동작과정
+ * 	<브라우저> : HTML / JavaScript(바닐라JS)
+ *  	| = 재료선택
+ *  ThymeLeaf
+ *  	| - Post  /recipe/recommand
+ *  RecipeController
+ *  	| @GetMapping("/recipe/recommand"): 화면 UI
+ *  	| @PostMapping("/recipe/recommand"): 데이터 전송
+ *  	| ingredients 전달(재료)
+ *  RecipeService
+ *   	|
+ *   	 1) 재료 유무 확인
+ *   	 2) 검색문장 생성
+ *   	 3) EmbeddingModel 생성
+ *       4) String => float[] 변경 
+ *       			  ----------- vector
+ *       5) PostgresSQL + pgVector => 유사 검색
+ *       	---------------------- LIKE
+ *       6) 레시피에서 content 추출
+ *       7) 냉장고 -> 레시피 재료 비교
+ *       8) 재료 상태 결정 (부족, 전체 만족 )
+ *       9) 재료 충족률 계산 
+ *      |
+ *   추천 레시피 List => Limit 5
+ *   -------------------------
+ *   	| = 보유 재료
+ *   	| = 부족 재료
+ *   	| = 재료 충족률
+ *   	| = 레시피 명
+ *   	| = 조리방법
+ *   	| = 요리 종류
+ *    	| = 조리 과정
+ *    	  |
+ *   ----------------------
+ *   ThymeLeaf
+ *   	=> HTML = Controller = RecipeService
+ *   		= EmbeddingModel = PostgreSQL + pgVector
+ *   		= 유사레시피 검색
+ *   		= 재료확인
+ *   	--------------------------------- HTML에서 출력
+ *  
+ *  
+ *   JavaScript => Pinia로 변경 고려
+ *   @Tool => Tool Calling (프롬프트 검색)
+ *  
+ */
 /**
  * ============================================================
  * RecipeController

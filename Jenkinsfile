@@ -1,6 +1,6 @@
 pipeline{
 	agent any
-	enviroment{
+	environment {
 		APP_DIR="~/app"
 		JAR_NAME="SpringRecipeAiProject-0.0.1-SNAPSHOT.jar"
 	}
@@ -37,7 +37,7 @@ pipeline{
 		//임시 파일
 		stage('Create .env'){
 			steps {
-				withCredentiala([
+				withCredentials([
 					string(
 						credentialsId: 'post-url',
 						variable: 'POST_URL'
@@ -89,10 +89,10 @@ pipeline{
 		//DockerHub Login
 		stage('DockerHub Login'){
 			steps{
-				withCredentiala([usernamePassword(
+				withCredentials([usernamePassword(
 					credentialsId: 'dockerhub_info',
 					usernameVariable: 'DH_USER',
-					passwordVariable: 'DH_PASS',
+					passwordVariable: 'DH_PASS'
 				)]){
 					sh '''
 						echo "$DH_PASS" | docker login -u "$DH_USER" --password-stdin
